@@ -1,6 +1,6 @@
-# @openobserve/pino-openobserve
+# @dgllghr/pino-openobserve
 
-This is a transport for the Pino logging library that sends logs to an Openobserve server in batches. 
+This is a transport for the Pino logging library that sends logs to an Openobserve server in batches.
 
 ## Prerequisites
 
@@ -13,13 +13,13 @@ You can install this package using npm or Yarn.
 With npm:
 
 ```bash
-npm install @openobserve/pino-openobserve
+npm install @dgllghr/pino-openobserve
 ```
 
 With Yarn:
 
 ```bash
-yarn add @openobserve/pino-openobserve
+yarn add @dgllghr/pino-openobserve
 ```
 
 ## Options
@@ -31,7 +31,7 @@ The transport accepts an options object with the following properties:
 | url | Yes | - | The URL of your Openobserve server. |
 | organization | Yes | - | The name of your organization. |
 | streamName | Yes | - | The name of the stream to which logs should be sent. |
-| auth | Yes | `{ username: "", password: "" }` | An object with `username` and `password` properties for authenticating with the Openobserve server |
+| auth | Yes | `{ username: "", password: "" } | { accessKey: "" }` | An object with `username` and `password` properties for authenticating with the Openobserve server |
 | batchSize | No | `100` | The number of logs to include in each batch. |
 | timeThreshold | No | `300000` (5 mins) | The interval, in milliseconds, at which logs should be sent. |
 | silentSuccess | No | false | A boolean indicating whether to suppress successful operation messages. |
@@ -39,20 +39,20 @@ The transport accepts an options object with the following properties:
 
 ## Usage
 
-The way you import the `pino` and `@openobserve/pino-openobserve` packages depends on whether you're using `import` or `require`. 
+The way you import the `pino` and `@dgllghr/pino-openobserve` packages depends on whether you're using `import` or `require`.
 
 Using `import`:
 
 ```javascript
 import pino from 'pino';
-import OpenobserveTransport from '@openobserve/pino-openobserve';
+import OpenobserveTransport from '@dgllghr/pino-openobserve';
 ```
 
 Using `require`:
 
 ```javascript
 const pino = require('pino');
-const OpenobserveTransport = require('@openobserve/pino-openobserve');
+const OpenobserveTransport = require('@dgllghr/pino-openobserve');
 ```
 
 After importing the necessary packages, you can use this transport with Pino like this:
@@ -67,8 +67,7 @@ const logger = pino({
       organization: 'your-organization',
       streamName: 'your-stream',
       auth: {
-        username: 'your-username',
-        password: 'your-password',
+        accessKey: 'your-access-key',
       },
     },
   },

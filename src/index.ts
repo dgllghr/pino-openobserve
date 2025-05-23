@@ -17,10 +17,14 @@
 import { Writable } from "stream";
 import * as url from "url";
 
-interface AuthOptions {
-  username: string;
-  password: string;
-}
+type AuthOptions =
+  | {
+      username: string;
+      password: string;
+    }
+  | {
+      accessKey: string;
+    };
 
 interface TransportOptions {
   url: string;
@@ -67,11 +71,18 @@ export default async function (opts: TransportOptions) {
     apiCallInProgress = true;
     const payload = logs.splice(0, batchSize).join("");
 
+    let authHeader: string;
+    if ("accessKey" in auth) {
+      authHeader = `Basic ${auth.accessKey}`;
+    } else {
+      authHeader = `Basic ${Buffer.from(`${auth.username}:${auth.password}`).toString("base64")}`;
+    }
+
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
-          Authorization: `Basic ${Buffer.from(`${auth.username}:${auth.password}`).toString("base64")}`,
+          Authorization: authHeader,
           "Content-Type": "application/json",
         },
         body: payload,
