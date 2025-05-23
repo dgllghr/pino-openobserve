@@ -1,5 +1,5 @@
 {
-  "name": "@openobserve/pino-openobserve",
+  "name": "@dgllghr/pino-openobserve",
   "version": "0.1.0",
   "description": "Pino transport for Openobserve",
   "main": "dist/index.js",
